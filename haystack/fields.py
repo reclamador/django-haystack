@@ -256,7 +256,7 @@ class FloatField(SearchField):
 
 
 class DecimalField(SearchField):
-    field_type = 'string'
+    field_type = 'float'
 
     def __init__(self, **kwargs):
         if kwargs.get('facet_class') is None:
@@ -271,7 +271,7 @@ class DecimalField(SearchField):
         if value is None:
             return None
 
-        return six.text_type(value)
+        return float(value)
 
 
 class BooleanField(SearchField):

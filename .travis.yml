@@ -1,10 +1,9 @@
 sudo: false
 language: python
 python:
-    - 2.6
     - 2.7
-    - 3.3
     - 3.4
+    - 3.5
     - pypy
 
 cache:
@@ -29,7 +28,7 @@ before_install:
     - mkdir -p $HOME/download-cache
 
 install:
-    - if [[ $TRAVIS_PYTHON_VERSION == '2.6' ]]; then pip install mock==1.0.1; fi
+    - pip install --upgrade setuptools
     - pip install requests "Django${DJANGO_VERSION}"
     - python setup.py clean build install
 
@@ -42,19 +41,13 @@ script:
 
 env:
     matrix:
-        - DJANGO_VERSION=">=1.6,<1.7"
-        - DJANGO_VERSION=">=1.7,<1.8"
         - DJANGO_VERSION=">=1.8,<1.9"
+        - DJANGO_VERSION=">=1.9,<1.10"
+        - DJANGO_VERSION=">=1.10,<1.11"
 
 matrix:
     allow_failures:
-        - python: "pypy"
-        - python: 2.6
-    exclude:
-       - python: 2.6
-         env: DJANGO_VERSION=">=1.7,<1.8"
-       - python: 2.6
-         env: DJANGO_VERSION=">=1.8,<1.9"
+        - python: 'pypy'
 
 services:
     - elasticsearch

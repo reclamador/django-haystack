@@ -194,6 +194,7 @@ class ElasticsearchSearchBackend(BaseSearchBackend):
 
     def remove(self, obj_or_string, commit=True):
         doc_id = get_identifier(obj_or_string)
+        doc_id = int(doc_id.split('.')[-1])
 
         if not self.setup_complete:
             try:
